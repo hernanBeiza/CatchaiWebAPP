@@ -5,7 +5,6 @@ angular.module('catchaiApp.LoginController', ['ngRoute'])
 .controller('LoginController', ['$scope', '$routeParams','$location',
 
   function($scope, $routeParams,$location){
-    console.log("LoginController.js");  
 
 	$scope.init = function(){
 		console.log("LoginController.js: init();");

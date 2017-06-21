@@ -1,0 +1,49 @@
+<div id="wrapper" ng-controller='GifsListaController' ng-init='init()'>
+    <div class="container">
+	    <div class="row">
+	        <div class="col-lg-12 col-md-12 col-sm-12">
+	            <div class="page-header">
+	                <h1>Mis Gifs <small>{{model.evento.nombre}}</small></h1></div>
+	        </div>
+	    </div>
+	    <div class="row">
+	        <div class="col-lg-12 col-md-12 col-sm-12">
+	            <uib-progressbar ng-show="model.cargando" class="progress-striped active" animate="true" value="100"></uib-progressbar>
+	            <div class="table-responsive">
+	                <table class="table">
+	                    <thead>
+	                        <tr>
+	                            <th>ID </th>
+	                            <th>Bajada </th>
+	                            <th>Acciones </th>
+	                        </tr>
+	                    </thead>
+	                    <tbody>
+
+	                        <tr ng-repeat="gif in model.gifs" class="img animated fadeIn" ng-class="{ 'alert-success' : gif.valid == 1, 'alert-danger' : gif.valid == 2}">
+	                            <td>{{gif.idgif}}</td>
+	                            <td>{{gif.bajada}}</td>
+	                            <td>
+	                                <a href="" ng-click="darBaja(gif);"><i class='fa fa-arrow-down'></i></a>
+	                                <a href="" ng-click="darAlta(gif);"><i class='fa fa-arrow-up'></i></a>
+	                            </td>
+	                        </tr>
+	                    </tbody>
+	                </table>
+	            </div>
+	        </div>
+	    </div>
+	    <div class="row">
+	        <div class="col-lg-12 col-md-12 col-sm-12">
+	            <nav>
+	                <ul class="pagination">
+	                    <li><a ng-click="cargarAnterior();" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+	                    <li ng-repeat="i in getNumber(model.paginas) track by $index"><a ng-click="gifsCargar($index+1);">{{$index+1}}</a></li>
+	                    <li><a ng-click="cargarSiguiente();" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+	                </ul>
+	            </nav>
+	        </div>
+	    </div>
+	</div>
+
+</div>

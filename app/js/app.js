@@ -8,7 +8,10 @@ var app = angular.module('catchaiApp', [
   'catchaiApp.LoginController',
   'catchaiApp.EventosListaController',
   'catchaiApp.EventoAgregarController',
-  'catchaiApp.MenuController'
+  'catchaiApp.GifsListaController',
+  'catchaiApp.MenuController',
+  'backButton',
+  'ngBootbox','ui.bootstrap'
 ]);
 
 app.config(['$routeProvider','$locationProvider',
@@ -32,6 +35,10 @@ app.config(['$routeProvider','$locationProvider',
     templateUrl: 'views/eventoAgregar.html',
     //controller: 'EventosAgregarController'
   }).
+  when('/gifs/:idevento', {
+    templateUrl: 'views/gifsView.html',
+    //controller: 'EventosAgregarController'
+  }).
   when('/index', {
     templateUrl: 'views/indexView.html',
     //controller: 'IndexController'
@@ -49,4 +56,15 @@ app.config(['$routeProvider','$locationProvider',
   $rootScope.model.logueado = false;
   //Modelo del administrador
   $rootScope.model.admin = {}
+  // Total de paginas
+  $rootScope.model.paginas = 3;
+  //Eventos de prueba
+  $rootScope.model.eventos = [{"idevento":1,"nombre":"Paris Joven"},{"idevento":2,"nombre":"Primavera Rocker"}];
+  // Gifs
+  $rootScope.model.gifs = [];
+
+  $rootScope.getNumber = function(num) {
+      return new Array(num);   
+  }
+
 });
