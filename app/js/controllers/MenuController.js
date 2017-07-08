@@ -10,6 +10,11 @@ angular.module('catchaiApp.MenuController', ['ngRoute'])
 		console.log("MenuController.js: init();");
 	};
 
+	$scope.cerrarSesion = function() {
+		console.log("MenuController.js: cerrarSesion();");
+		$scope.model.logueado = false;
+	}
+
   }
 
 ])

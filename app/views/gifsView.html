@@ -3,12 +3,13 @@
 	    <div class="row">
 	        <div class="col-lg-12 col-md-12 col-sm-12">
 	            <div class="page-header">
-	                <h1>Mis Gifs <small>{{model.evento.nombre}}</small></h1></div>
+	                <h1>Mis Gifs <small>{{model.evento.nombre}}</small></h1>
+                </div>
 	        </div>
 	    </div>
 	    <div class="row">
 	        <div class="col-lg-12 col-md-12 col-sm-12">
-	            <uib-progressbar ng-show="model.cargando" class="progress-striped active" animate="true" value="100"></uib-progressbar>
+	            <uib-progressbar ng-show="model.cargando" class="progress-striped active" type="catchai" animate="true" value="100"></uib-progressbar>
 	            <div class="table-responsive">
 	                <table class="table">
 	                    <thead>
@@ -21,11 +22,11 @@
 	                    <tbody>
 
 	                        <tr ng-repeat="gif in model.gifs" class="img animated fadeIn" ng-class="{ 'alert-success' : gif.valid == 1, 'alert-danger' : gif.valid == 2}">
-	                            <td>{{gif.idgif}}</td>
-	                            <td>{{gif.bajada}}</td>
+	                            <td>{{gif.idimagen}}</td>
+	                            <td>{{gif.descripcion}}</td>
 	                            <td>
-	                                <a href="" ng-click="darBaja(gif);"><i class='fa fa-arrow-down'></i></a>
-	                                <a href="" ng-click="darAlta(gif);"><i class='fa fa-arrow-up'></i></a>
+	                                <a href="" ng-click="darBaja(gif);"><i class='fa fa-arrow-down colorCatchai'></i></a>
+	                                <a href="" ng-click="darAlta(gif);"><i class='fa fa-arrow-up colorCatchai'></i></a>
 	                            </td>
 	                        </tr>
 	                    </tbody>
@@ -37,9 +38,9 @@
 	        <div class="col-lg-12 col-md-12 col-sm-12">
 	            <nav>
 	                <ul class="pagination">
-	                    <li><a ng-click="cargarAnterior();" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-	                    <li ng-repeat="i in getNumber(model.paginas) track by $index"><a ng-click="gifsCargar($index+1);">{{$index+1}}</a></li>
-	                    <li><a ng-click="cargarSiguiente();" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+	                    <li><a class="colorCatchai mouse" href="" ng-click="cargarAnterior();" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+	                    <li ng-repeat="i in getNumber(model.paginas) track by $index"><a class="colorCatchai mouse" href="" ng-click="gifsCargar($index+1);">{{$index+1}}</a></li>
+	                    <li><a class="colorCatchai mouse" href="" ng-click="cargarSiguiente();" aria-label="Next"><span aria-hidden="true">»</span></a></li>
 	                </ul>
 	            </nav>
 	        </div>

@@ -1,6 +1,6 @@
 {
   "name": "catchaiadminwebapp",
-  "description": "Plataforma de adminsiración de Catchai",
+  "description": "Plataforma de administración de Catchai",
   "version": "0.1.0",
   "homepage": "http://admin.catchai.cl",
   "license": "MIT",
@@ -14,6 +14,8 @@
     "jquery": "^3.2.1",
     "bootbox.js": "bootbox#^4.4.0",
     "angular-bootstrap": "^2.5.0",
-    "ngBootbox": "^0.2.0"
+    "ngBootbox": "^0.2.0",
+    "angular-moment-module": "*",
+    "moment": "^2.18.1"
   }
 }

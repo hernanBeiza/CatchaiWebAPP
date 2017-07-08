@@ -2,6 +2,6 @@
 
  angular.module('constantes', [])
 
-.constant('ENV', {name:'development',APIEndPoint:'http://desarrollo.cl:portDEV/'})
+.constant('ENV', {name:'production',APIEndPoint:'http://api.catchai.cl/'})
 
 ;

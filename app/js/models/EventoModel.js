@@ -1,9 +1,9 @@
 angular.module('catchaiApp.EventoModel', [])
 .factory('EventoModel', ['$http', function($http) {  
-    function EventoModel(idevento,nombre,valid) {
-        //console.log("ClaveModel: ClaveModel();");
-        //console.log(idclave,idtipo,host,usuario,contrasena,comentarios,tipo);
+    function EventoModel(idevento,idadministrador,fecha,nombre,valid) {
         this.idevento = idevento;
+        this.idadministrador = idadministrador;
+        this.fecha = fecha;
         this.nombre = nombre;
         this.valid = valid;
     };
