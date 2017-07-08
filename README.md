@@ -1,4 +1,4 @@
-# CatchaiPlataforma — adminsitrador de eventos y gifs para Catchai.cl
+# CatchaiPlataforma — Administrador de eventos y gifs para Catchai.cl
 
 Acá está el código del administrador de gifs y eventos. Está basado en la semilla y esqueleto `angular-seed`
 
