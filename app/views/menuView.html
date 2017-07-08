@@ -1,4 +1,30 @@
 <div id="wrapper" ng-controller='MenuController' ng-init='init()' ng-show="(model.logueado)">
-	<a href="#/eventos">Mis Eventos</a>
-	<a href="#/eventoAgregar">Agregar Evento</a>
+    <nav class="navbar navbar-default custom-header">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="#/index" class="navbar-brand navbar-link">Catchai<span></span> </a>
+                <button data-toggle="collapse" data-target="#navbar-collapse" class="navbar-toggle collapsed">
+                    <span class="sr-only">Toggle navigation</span>
+		            <span class="glyphicon glyphicon-th"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <ul class="nav navbar-nav links">
+                	<li class=""><a href="#/eventos">Mis Eventos</a></li>
+					<li class=""><a href="#/evento/agregar">Agregar Evento</a></li>
+					<li class=""><a href="#" ng-click="cerrarSesion()">Cerrar Sesión</a></li>
+                </ul>
+                <!--
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" aria-expanded="false" class="dropdown-toggle"> <span class="caret"></span><img src="{{model.usuario.imagen}}" class="dropdown-image" />{{model.usuario.nombre}}</a>
+                        <ul role="menu" class="dropdown-menu dropdown-menu-right">
+                            <li role="presentation" class="active"><a href="#" ng-click="logout()">Cerrar Sesión </a></li>
+                        </ul>
+                    </li>
+                </ul>
+                -->
+            </div>
+        </div>
+    </nav>
 </div>

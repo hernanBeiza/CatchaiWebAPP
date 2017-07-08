@@ -1,21 +1,20 @@
 // factory
-angular.module("catchaiApp.UsuarioDAO",[])
-.factory('UsuarioDAO', function($http,$q,ENV){ 
+angular.module("catchaiApp.AdminDAO",['catchaiApp.AdminModel'])
+.factory('AdminDAO', function($http,$q,ENV,AdminModel){ 
     return {
-        login: function(usuario,contrasena,onComplete){
-            console.info("usuarioDAO: login();");
+        login: function(usuario,contrasena){
+            console.info("AdminDAO: login();");
             var deferred = $q.defer();
-            var ruta = ENV.APIEndPoint+"login/";
+            var ruta = ENV.APIEndPoint+"iniciarSesion.php";
             console.info(ruta);
             $http({
-                withCredentials: true,
                 method: 'POST',
                 url: ruta,
                 headers: {
-                //'x-access-token': token,
-                //'Content-Type': 'form-data',
-                //'Content-Type': 'application/json',
-                'Content-Type': 'application/x-www-form-urlencoded',
+                    //'x-access-token': token,
+                    //'Content-Type': 'form-data',
+                    //'Content-Type': 'application/json',
+                    'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 data: {
                     usuario:usuario,
@@ -28,60 +27,18 @@ angular.module("catchaiApp.UsuarioDAO",[])
                     return str.join("&");
                 },
             }).then(function enviarComplete(json) {
-                console.info("usuarioDAO.js: enviarComplete");
-                //console.info(json.data);
+                console.log("AdminDAO.js: enviarComplete");
+                console.log(json.data);
                 if(json.data.result){
-                    deferred.resolve({result:true,token:json.data.token,mensaje:json.data.mensaje,usuario:json.data.usuario});
+                    var admin = json.data.admin;
+                    var model = new AdminModel(admin.idAdministrador,admin.nombre);
+                    deferred.resolve({result:true,mensajes:json.data.mensajes,admin:model});
                 } else {
                     deferred.reject({result:false,errores:json.data.errores});
                 }
             }, function enviarError(data){
-                console.error("usuarioDAO.js: enviarError");
+                console.error("AdminDAO.js: enviarError");
                 console.error(data);
-                //console.log(data,data.statusText);
-                /*
-                console.info(status);
-                console.info(headers);
-                console.info(config);
-                */
-                deferred.reject({result:false,errores:"Hubo un error de conexión. Intenta más tarde"});
-            });
-            return deferred.promise;
-        },
-        session: function(usuario){
-            //console.info("usuarioDAO.js: session();");
-            var deferred = $q.defer();
-            var ruta = ENV.APIEndPoint+"session/";
-            //console.info(ruta);
-            $http({
-                withCredentials: true,
-                method: 'GET',
-                url: ruta,
-                headers: {
-                    //'x-access-token': token,
-                    //'Content-Type': 'form-data',
-                    //'Content-Type': 'application/json',
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                data: {
-                },
-                transformRequest: function(obj) {
-                    var str = [];
-                    for(var p in obj)
-                    str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                    return str.join("&");
-                },
-            }).then(function enviarComplete(json) {
-                //console.info("usuarioDAO.js: enviarComplete();");
-                //console.info(json.data);
-                if(json.data.result){
-                    deferred.resolve({result:true,mensaje:json.data.mensaje,usuario:json.data.usuario});
-                } else {
-                    deferred.reject({result:false,errores:json.data.errores});
-                }
-            }, function enviarError(data){
-                //console.error("usuarioDAO.js enviarError();");
-                //console.error(data);
                 //console.log(data,data.statusText);
                 /*
                 console.info(status);
@@ -115,16 +72,16 @@ angular.module("catchaiApp.UsuarioDAO",[])
                     return str.join("&");
                 },
             }).then(function enviarComplete(json) {
-                //console.info("usuarioDAO.js: enviarComplete");
-                //console.info(json.data);
+                console.log("AdminDAO.js: enviarComplete");
+                console.log(json.data);
                 if(json.data.result){
-                    deferred.resolve({result:true,mensaje:json.data.mensaje});
+                    deferred.resolve({result:true,mensajes:json.data.mensajes});
                 } else {
                     deferred.reject({result:false,errores:json.data.errores});
                 }
             }, function enviarError(data){
-                //console.error("factoryUsuario.js: enviarError");
-                //console.error(data);
+                console.error("AdminDAO.js: enviarError");
+                console.error(data);
                 //console.log(data,data.statusText);
                 /*
                 console.info(status);
@@ -146,19 +103,6 @@ angular.module("catchaiApp.UsuarioDAO",[])
         borrar: function(){
             localStorage.removeItem("usuario");
             return true;
-        },
-        guardarToken: function(token){
-            localStorage.setItem("token",token);
-            return true;
-        },
-        obtenerToken: function(){
-            var usuario = localStorage.getItem("token");
-            return usuario;
-        },        
-        borrarToken: function(){
-            localStorage.removeItem("token");
-            return true;
-        }       
-
+        }
     };
 });

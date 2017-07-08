@@ -7,11 +7,13 @@ var app = angular.module('catchaiApp', [
   'catchaiApp.IndexController',
   'catchaiApp.LoginController',
   'catchaiApp.EventosListaController',
-  'catchaiApp.EventoAgregarController',
+  'catchaiApp.EventoAgregarController',  'catchaiApp.EventoEditarController',
   'catchaiApp.GifsListaController',
   'catchaiApp.MenuController',
+  'catchaiApp.EventoModel','catchaiApp.AdminModel',
+  'catchaiApp.EventoDAO','catchaiApp.AdminDAO','catchaiApp.GifDAO',
   'backButton',
-  'ngBootbox','ui.bootstrap'
+  'ngBootbox','ui.bootstrap','angular-moment-module'
 ]);
 
 app.config(['$routeProvider','$locationProvider',
@@ -31,8 +33,12 @@ app.config(['$routeProvider','$locationProvider',
     templateUrl: 'views/eventosView.html',
     //controller: 'EventosListaController'
   }).
-  when('/eventoAgregar', {
+  when('/evento/agregar', {
     templateUrl: 'views/eventoAgregar.html',
+    //controller: 'EventosAgregarController'
+  }).
+  when('/evento/editar/:idevento', {
+    templateUrl: 'views/eventoEditar.html',
     //controller: 'EventosAgregarController'
   }).
   when('/gifs/:idevento', {
@@ -45,8 +51,7 @@ app.config(['$routeProvider','$locationProvider',
   }).
   otherwise({redirectTo: '/index'});
 
-}]).run(function($rootScope,ENV){
-
+}]).run(function($rootScope,ENV,$location){
   console.log("app.js: run");
   console.log(ENV);
 
@@ -57,14 +62,25 @@ app.config(['$routeProvider','$locationProvider',
   //Modelo del administrador
   $rootScope.model.admin = {}
   // Total de paginas
-  $rootScope.model.paginas = 3;
+  $rootScope.model.paginas = 0;
   //Eventos de prueba
-  $rootScope.model.eventos = [{"idevento":1,"nombre":"Paris Joven"},{"idevento":2,"nombre":"Primavera Rocker"}];
+  //$rootScope.model.eventos = [{"idevento":1,"nombre":"Paris Joven"},{"idevento":2,"nombre":"Primavera Rocker"}];
   // Gifs
   $rootScope.model.gifs = [];
 
+  $rootScope.$on('$routeChangeSuccess', function() {
+    console.log($location.path());
+    if($location.path()!="/index" && $location.path()!="/login" && !$rootScope.model.admin.idadministrador){
+      console.error("Usuario no logueado: ",$rootScope.model.logueado);
+      $location.path("/");
+    } else {
+      console.log("Usuario logueado: ",$rootScope.model.logueado);
+    }
+  });
+
   $rootScope.getNumber = function(num) {
-      return new Array(num);   
+    console.log(num);
+    return new Array(num);   
   }
 
 });

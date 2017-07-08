@@ -5,43 +5,55 @@
   <base href="/">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Catchai App</title>
+  <title>CatchaiApp</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="css/app.css">
-
-
   <!-- Estilos -->
+  <link rel="stylesheet" href="css/app.css">
+  <!-- Theme CSS -->
+  <link href="css/new-age.min.css" rel="stylesheet">
+  <!-- BoostrapStudio -->
+  <link rel="stylesheet" href="fonts/ionicons.min.css">
+  <link rel="stylesheet" href="css/Login-Form-Clean.css">
+
   <!-- Custom Fonts -->
-  <link href="node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
   <!-- Librerías -->
-
   <!-- AngularJS -->
-  <script src="node_modules/angular/angular.js"></script>
-  <script src="node_modules/angular-route/angular-route.js"></script>
-  <script src="node_modules/jquery/dist/jquery.min.js"></script>
-  <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-  <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="node_modules/bootbox/bootbox.js"></script>
-  <script src="node_modules/ngBootbox/dist/ngBootbox.min.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="bower_components/bootbox/bootbox.js"></script>
+  <script src="bower_components/ngBootbox/dist/ngBootbox.min.js"></script>
+  <script src="bower_components/moment/moment.js"></script>
+  <script src="bower_components/angular-moment-module/lib/angular-moment-module.js"></script>
+
   <!-- UIBootstrap -->
-  <script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
-  <script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
-  <link rel="stylesheet" href="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css">
+  <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <link rel="stylesheet" href="bower_components/angular-bootstrap/ui-bootstrap-csp.css">
 
   <!-- Aplicación -->
   <!-- directives -->
   <script src="js/directives/backButton.js"></script>
   <!-- dao -->
+  <script src="js/daos/AdminDAO.js"></script>
+  <script src="js/daos/EventoDAO.js"></script>
+  <script src="js/daos/GifDAO.js"></script>
   <!-- models -->
+  <script src="js/models/AdminModel.js"></script>
   <script src="js/models/EventoModel.js"></script>
+  <script src="js/models/GifModel.js"></script>
   <script src="js/config.js"></script>
   <!-- Controllers -->
   <script src="js/controllers/IndexController.js"></script>
   <script src="js/controllers/LoginController.js"></script>
   <script src="js/controllers/MenuController.js"></script>
   <script src="js/controllers/EventoAgregarController.js"></script>
+  <script src="js/controllers/EventoEditarController.js"></script>
   <script src="js/controllers/EventosListaController.js"></script>
   <script src="js/controllers/GifsListaController.js"></script>
 

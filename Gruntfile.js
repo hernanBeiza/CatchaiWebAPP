@@ -12,7 +12,7 @@ module.exports = function(grunt){
   				options:{
 					port:4000,
 					hostname:'0.0.0.0',
-  					bases:['./','./app/','./app/**/*.*'],
+  					bases:['./app/','./app/**/*.*'],
 				    livereload: true
   				}
 			}
@@ -34,19 +34,19 @@ module.exports = function(grunt){
 			        //package: grunt.file.readJSON('config.json')
 					ENV: {
 						name: 'development',
-						APIEndPoint: 'http://desarrollo.cl:portDEV/'
+						APIEndPoint: 'http://192.168.0.30/'
 					}
 				}
 			},
 			production: {
 				options: {
-					dest: './app/config.js'
+					dest: './app/js/config.js'
 				},
 				constants: {
 			        //package: grunt.file.readJSON('config.json')
 					ENV: {
 						name: 'production',
-						APIEndPoint: 'http://production.cl:portPROD/'
+						APIEndPoint: 'http://api.catchai.cl/'
 					}
 				}
 			}

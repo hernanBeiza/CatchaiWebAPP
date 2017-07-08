@@ -2,34 +2,89 @@
 
 angular.module('catchaiApp.GifsListaController', ['ngRoute'])
 
-.controller('GifsListaController', ['$scope', '$routeParams','$location',
+.controller('GifsListaController', ['$scope', '$routeParams', '$location', 'GifDAO','$ngBootbox',
 
-  function($scope, $routeParams, $location){
+  function($scope, $routeParams, $location, GifDAO, $ngBootbox){
 
 	$scope.init = function(){
 		console.log("GifsListaController.js: init();");
-		console.log($scope.model.evento);
+		$scope.model.eventos = [];
 
-		$scope.gifsCargar(1);
+		if($scope.model.evento){	
+			console.log($scope.model.evento);
+			$scope.gifsCargar(1);			
+		}
 	};
 
 	$scope.gifsCargar = function(pagina){
 		//Total de páginas
-		$scope.model.gifs = [{idgif:1,bajada:"Acá con los amigos",valid:1},{idgif:2,bajada:"¡Vacilando!",valid:1},{idgif:3,bajada:"¡Estamos ultraah!",valid:2}]
-		console.log($scope.model.gifs);
+		$scope.model.cargando = true;
+		$scope.model.pagina = pagina;
+	  	GifDAO.obtenerConPagina(pagina,$scope.model.evento).then(function(data){
+			$scope.model.cargando = false;
+	  		if(data.result){
+	  			$scope.model.paginas = data.paginas;
+		  		$scope.model.gifs = data.imagenes;		  			
+	  		} else {
+	  			$scope.model.gifs = [];
+	  			console.error(data.errores);
+		        $ngBootbox.alert(data.errores).then(function() { });			    		
+	  		}
+	  	}, function(data){
+			$scope.model.cargando = false;
+  			$scope.model.gifs = [];
+	        $ngBootbox.alert(data.errores).then(function() { });			    		
+	  	});
 	}
 
 	$scope.darAlta = function(gif){
 		console.log(gif);
-		gif.valid=1;
-		console.log(gif);
+		$scope.model.cargando = true;
+		GifDAO.darAlta(gif).then(function(data){
+			$scope.model.cargando = false;
+			if(data.result){
+				gif.valid=1;
+				console.log(gif);
+		        $ngBootbox.alert(data.mensajes).then(function() { });			    		
+			} else {
+		        $ngBootbox.alert(data.errores).then(function() { });			    		
+			}
+	  	},function(data){
+			$scope.model.cargando = false;
+	        $ngBootbox.alert(data.errores).then(function() { });			    		
+	  	});
 	}
 
 	$scope.darBaja = function(gif){
 		console.log(gif);
-		gif.valid=2;
-		console.log(gif);
+		$scope.model.cargando = true;
+
+		GifDAO.darBaja(gif).then(function(data){
+			$scope.model.cargando = false;
+	
+			if(data.result){
+				gif.valid=2;
+				console.log(gif);
+		        $ngBootbox.alert(data.mensajes).then(function() { });			    		
+			} else {
+		        $ngBootbox.alert(data.errores).then(function() { });			    		
+			}
+			
+	  	},function(data){
+			$scope.model.cargando = false;	
+	        $ngBootbox.alert(data.errores).then(function() { });			    		
+	  	});
 	}
+
+	$scope.cargarAnterior = function(pagina){
+		$scope.model.pagina = pagina;
+
+	}
+
+	$scope.cargarSiguiente = function(pagina){
+		$scope.model.pagina = pagina;
+	}
+
 
 
   }

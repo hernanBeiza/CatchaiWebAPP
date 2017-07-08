@@ -1,11 +1,11 @@
 // factory
-angular.module("catchaiApp.EventoDAO",['ClienteModel'])
-.factory('EventoDAO', function($http,$q,ENV,ClienteModel){ 
+angular.module("catchaiApp.EventoDAO",['catchaiApp.EventoModel'])
+.factory('EventoDAO', function($http,$q,ENV,EventoModel){ 
     return {
-        obtenerConPagina: function(token,pagina){            
-            console.info("clienteDAO: obtener();");
+        obtenerConPagina: function(pagina,idadmin){            
+            console.info("EventoDAO: obtener();");
             var deferred = $q.defer();
-            var ruta = ENV.APIEndPoint+"api/clientes?token="+token+"&pag="+pagina;
+            var ruta = ENV.APIEndPoint+"obtenerEventos.php?idadmin="+idadmin+"&pag="+pagina;
             console.info(ruta);
             $http({
                 method: 'GET',
@@ -20,26 +20,26 @@ angular.module("catchaiApp.EventoDAO",['ClienteModel'])
                     //token:token
                 },
             }).then(function enviarComplete(json) {
-                console.info("clienteDAO.js: enviarComplete");
+                console.info("EventoDAO.js: enviarComplete");
                 console.info(json.data);
                 if(json.data.result){
-                    var clientes = [];
-                    for(var i=0; i<json.data.clientes.length; i++) {
-                        var row = json.data.clientes[i];
-                        var model = new ClienteModel(row.idcliente,row.nombre,row.logo);
-                        clientes.push(model);
+                    var eventos = [];
+                    for(var i=0; i<json.data.eventos.length; i++) {
+                        var row = json.data.eventos[i];
+                        var model = new EventoModel(row.idEvento,row.idAdministrador,row.fecha,row.nombre,row.valid);
+                        eventos.push(model);
                     }
-                    if(clientes.length>0){
-                        deferred.resolve({result:true,clientes:clientes,paginas:json.data.paginas});                            
+                    if(eventos.length>0){
+                        deferred.resolve({result:true,eventos:eventos,paginas:json.data.totalPaginas,mensajes:json.data.mensajes});                            
                     } else {
-                        deferred.reject({result:true,clientes:null});
+                        deferred.reject({result:true,eventos:null,errores:json.data.errores});
                     }
                 } else {
                     //console.info(json.data.errores);          
-                    deferred.reject({result:false,errores:json.data.mensaje});
+                    deferred.reject({result:false,errores:json.data.errores});
                 }
             }, function enviarError(data){
-                console.info("clienteDAO.js: enviarError");
+                console.info("EventoDAO.js: enviarError");
                 console.error(data);
                 //console.log(data,data.statusText);
                 /*
@@ -51,15 +51,59 @@ angular.module("catchaiApp.EventoDAO",['ClienteModel'])
             });
             return deferred.promise;
         },
-        obtenerConID: function(token,idcliente){
-            console.log("clienteDAO: obtenerConID();");
-        },
-        guardar: function(token,nombre,logoData){
-            console.info("clienteDAO: guardar();");
+        guardar: function(model){
+            console.info("EventoDAO: guardar();");
             var deferred = $q.defer();
-            var ruta = ENV.APIEndPoint+"api/clientes?token="+token;
+            var ruta = ENV.APIEndPoint+"guardarEvento.php";
             console.info(ruta);
 
+            $http({
+                method: 'POST',
+                url: ruta,
+                headers: {
+                    //'x-access-token': token,
+                    //'Content-Type': 'multipart/form-data'
+                    //'Content-Type': 'form-data',
+                    //'Content-Type': 'application/json',
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    //'Content-Type': undefined
+                },
+                data: {                    
+                    idadmin: model.idadministrador,
+                    nombre: model.nombre,
+                    fecha: model.fecha,
+                },
+                transformRequest: function(obj) {
+                    var str = [];
+                    for(var p in obj)
+                    str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    return str.join("&");
+                },
+            }).then(function enviarComplete(json) {
+                console.info("EventoDAO.js: enviarComplete");
+                console.info(json.data);
+                if(json.data.result){
+                    deferred.resolve({result:true,evento:json.data.evento,mensajes:json.data.mensajes});
+                } else {
+                    //console.info(json.data.errores);          
+                    deferred.reject({result:false,errores:json.data.errores});
+                }
+            }, function enviarError(data){
+                console.error("EventoDAO.js: enviarError");
+                console.error(data);
+                //console.log(data,data.statusText);
+                //console.log(status);
+                //console.log(headers);
+                //console.log(config);
+                deferred.reject({result:false,errores:"Hubo un error de conexión. Intenta más tarde"});
+            });
+            return deferred.promise;
+        },
+        editar: function(model){
+            console.info("EventoDAO: editar();");
+            var deferred = $q.defer();
+            var ruta = ENV.APIEndPoint+"editarEvento.php";
+            console.info(ruta);
             $http({
                 method: 'POST',
                 url: ruta,
@@ -68,36 +112,33 @@ angular.module("catchaiApp.EventoDAO",['ClienteModel'])
                 //'Content-Type': 'multipart/form-data'
                 //'Content-Type': 'form-data',
                 //'Content-Type': 'application/json',
-                //'Content-Type': 'application/x-www-form-urlencoded',
-                'Content-Type': undefined
+                'Content-Type': 'application/x-www-form-urlencoded',
+                //'Content-Type': undefined
                 },
                 data: {
-                    nombre: nombre,
-                    logo: logoData
+                    idevento: model.idevento,
+                    idadmin: model.idadministrador,
+                    nombre: model.nombre,
+                    fecha: model.fecha,
+                    valid: model.valid,
                 },
-                //withCredentials: true,
-                //transformRequest: angular.identity
-                transformRequest: function (data, headersGetter) {
-                    console.log(data);
-                    var formData = new FormData();
-                    angular.forEach(data, function (value, key) {
-                        formData.append(key, value);
-                    });
-                    //var headers = headersGetter();
-                    //delete headers['Content-Type'];
-                    return formData;
-                }
+               transformRequest: function(obj) {
+                    var str = [];
+                    for(var p in obj)
+                    str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    return str.join("&");
+                },
             }).then(function enviarComplete(json) {
-                console.info("clienteDAO.js: enviarComplete");
+                console.info("EventoDAO.js: enviarComplete");
                 console.info(json.data);
-                if(json.data.result==1){
-                    deferred.resolve({result:true,cliente:json.data.cliente,mensaje:json.data.mensaje});
+                if(json.data.result){
+                    deferred.resolve({result:true,evento:json.data.evento,mensajes:json.data.mensajes});
                 } else {
                     //console.info(json.data.errores);          
                     deferred.reject({result:false,errores:json.data.errores});
                 }
             }, function enviarError(data){
-                console.error("clienteDAO.js: enviarError");
+                console.error("EventoDAO.js: enviarError");
                 console.error(data);
                 //console.log(data,data.statusText);
                 //console.log(status);
@@ -106,93 +147,43 @@ angular.module("catchaiApp.EventoDAO",['ClienteModel'])
                 deferred.reject({result:false,errores:"Hubo un error de conexión. Intenta más tarde"});
             });
             return deferred.promise;
-        },
-        editar: function(token,idcliente,nombre,logoData){
-            console.info("clienteDAO: editar();");
+         },
+        eliminar: function(elID){
+            console.log("EventoDAO: eliminar();");
             var deferred = $q.defer();
-            var ruta = ENV.APIEndPoint+"api/clientes?token="+token;
-            console.info(ruta);
-
-            $http({
-                method: 'PUT',
-                url: ruta,
-                headers: {
-                //'x-access-token': token,
-                //'Content-Type': 'multipart/form-data'
-                //'Content-Type': 'form-data',
-                //'Content-Type': 'application/json',
-                //'Content-Type': 'application/x-www-form-urlencoded',
-                'Content-Type': undefined
-                },
-                data: {
-                    //token: token,
-                    idcliente: idcliente,
-                    nombre: nombre,
-                    logo: logoData
-                },
-                //withCredentials: true,
-                //transformRequest: angular.identity
-                transformRequest: function (data, headersGetter) {
-                    console.log(data);
-                    var formData = new FormData();
-                    angular.forEach(data, function (value, key) {
-                        formData.append(key, value);
-                    });
-                    //var headers = headersGetter();
-                    //delete headers['Content-Type'];
-                    return formData;
-                }
-            }).then(function enviarComplete(json) {
-                console.info("clienteDAO.js: enviarComplete");
-                console.info(json.data);
-                if(json.data.result==1){
-                    deferred.resolve({result:true,cliente:json.data.cliente,mensaje:json.data.mensaje});
-                } else {
-                    //console.info(json.data.errores);          
-                    deferred.reject({result:false,errores:json.data.mensaje});
-                }
-            }, function enviarError(data){
-                console.info("clienteDAO.js: enviarError");
-                console.error(data);
-                //console.log(data,data.statusText);
-                //console.log(status);
-                //console.log(headers);
-                //console.log(config);
-                deferred.reject({result:false,errores:"Hubo un error de conexión. Intenta más tarde"});
-            });
-            return deferred.promise;
-        },
-        eliminar: function(token,elID){
-            console.log("clienteDAO: eliminar();");
-            var deferred = $q.defer();
-            var ruta = ENV.APIEndPoint+"api/clientes/"+elID+"?token="+token;
+            var ruta = ENV.APIEndPoint+"eliminarEvento.php";
             //console.info(ruta);
             //console.info(elID);
             $http({
-                method: 'DELETE',
+                method: 'POST',
                 url: ruta,
                 headers: {
                 //'x-access-token': token,
                 //'Content-Type': 'multipart/form-data'
                 //'Content-Type': 'form-data',
                 //'Content-Type': 'application/json',
-                //'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Type': 'application/x-www-form-urlencoded',
                 //'Content-Type': undefined
                 },
-                /*
                 data: {
-                    //token:token
-                },*/
+                    idevento:elID
+                },
+               transformRequest: function(obj) {
+                    var str = [];
+                    for(var p in obj)
+                    str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    return str.join("&");
+                },
             }).then(function enviarComplete(json) {
-                console.info("clienteDAO.js: enviarComplete");
+                console.info("EventoDAO.js: enviarComplete");
                 console.info(json.data);
-                if(json.data.result==1){
-                    deferred.resolve({result:true,mensaje:json.data.mensaje});
+                if(json.data.result){
+                    deferred.resolve({result:true,mensajes:json.data.mensajes});
                 } else {
                     deferred.reject({result:false,errores:json.data.errores});
                 }
             }, function enviarError(data){
-                console.error("clienteDAO.js: enviarError");
+                console.error("EventoDAO.js: enviarError");
                 console.error(data);
                 //console.error(data,data.statusText);
                 //console.error(status);

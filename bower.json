@@ -1,15 +1,21 @@
 {
-  "name": "catchai.cl",
-  "description": "A starter project for AngularJS",
-  "version": "0.0.0",
-  "homepage": "https://github.com/angular/angular-seed",
+  "name": "catchaiadminwebapp",
+  "description": "Plataforma de administración de Catchai",
+  "version": "0.1.0",
+  "homepage": "http://admin.catchai.cl",
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "angular": "~1.5.0",
-    "angular-route": "~1.5.0",
-    "angular-loader": "~1.5.0",
-    "angular-mocks": "~1.5.0",
-    "html5-boilerplate": "^5.3.0"
+    "angular": "^1.6.4",
+    "angular-route": "^1.6.4",
+    "angular-ui-bootstrap": "^2.5.0",
+    "bootstrap": "^3.3.7",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.2.1",
+    "bootbox.js": "bootbox#^4.4.0",
+    "angular-bootstrap": "^2.5.0",
+    "ngBootbox": "^0.2.0",
+    "angular-moment-module": "*",
+    "moment": "^2.18.1"
   }
 }

@@ -1,5 +1,33 @@
 <div id="wrapper" ng-controller='LoginController' ng-init='init()'>
-	<h1>Login</h1>
-	<p>Acá va el Login de Andrés</p>	
-    <button class="btn btn-primary btn-block" type="submit" ng-click="loginEnviar()" id="agregarButton" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Enviando...">Botón que simula el envío de login de Andrés</button>
+
+  <div class="container"> 
+      <div class="row">
+        <div class="col-sm-6 col-sm-offset-3 myform-cont" >
+          <div class="login-clean">
+            <form method="post">
+              <h1 class="colorCatchai"><center>Catchai</center></h1>
+              <div class="mydescription">
+                <i><center>Un gif dice mas que mil palabras...</center></i>
+              </div>
+
+              <h2 class="sr-only">Login Form</h2>
+
+              <div class="illustration"><i class="icon ion-android-phone-portrait"></i></div>
+              <div class="form-group">
+                  <input class="form-control" ng-model="model.admin.usuario" type="text" name="usuario" placeholder="Usuario">
+              </div>
+              <div class="form-group">
+                  <input class="form-control" ng-model="model.admin.contrasena" type="password" name="password" placeholder="Contraseña">
+              </div>
+              <div class="form-group">
+                <button class="btn btn-primary btn-block" type="submit" ng-click="loginEnviar()" id="loginButton" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Enviando...">Entrar</button>
+              </div>
+              <!--
+              <a href="#" class="forgot">Forgot your email or password?</a>
+              -->
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
