@@ -1,43 +1,73 @@
 /* app css stylesheet */
+
+/* Paginación inferior */
+.pagination a {
+  color:#e2004a;  
+}
+
+.pagination > li > a {
+  color:#e2004a !important;
+  cursor:pointer !important;
+}
+
+.pagination > li.active > a {
+  background-color: #e2004a; 
+  color: #fff !important;   
+  border: 1px #f4476b solid;
+}
+
+.pagination > li.active > a:hover {
+  background-color: #fff; 
+  color: #e2004a !important;   
+  border: 1px #e2004a solid;
+}
+
+
 .mouse {
   cursor:pointer;
 }
 
 .colorCatchai {
-  color:#f4476b !important;
+  color:#e2004a !important;
 }
 /*Barra de progreso*/
 .progress-bar-catchai {
-  background-color: #f4476b !important;
+  background-color: #e2004a !important;
 }
 
 a .catchai{
-  color:#f4476b !important;
+  color:#e2004a !important;
 }
 
 .catchai {
-  background-color: #f4476b !important;
-  border-color: #f4476b !important;
+  background-color: #e2004a !important;
+  border-color: #e2004a !important;
 }
 
+/*
 .catchai:hover {
   background:#eb3b60 !important;
 }
+*/
 
 .page-header {
-  color:#f4476b;
+  color:#e2004a;
 }
 
 form .form-control {
   background:#f7f9fc;
   border:none;
-  border-bottom:1px solid #dfe7f1;
+  border-bottom:1px solid #e2004a;
   border-radius:0;
   box-shadow:none;
   outline:none;
   color:inherit;
   text-indent:8px;
   height:42px;
+}
+
+form .form-group input {
+  color:rgb(226,0,74);
 }
 
 .menu {
@@ -164,6 +194,7 @@ textarea.form-control:focus {
     border: 2px solid #1AAE88;
 }
 */
+
 button.mybtn {
     height: 50px;
     background: #1AAaaa;
@@ -174,6 +205,7 @@ button.mybtn {
     color: #fff;
     -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;    
 }
+/*
 button.mybtn:hover, button.mybtn:active { 
     opacity: 0.6; 
     color: #fff; 
@@ -183,6 +215,7 @@ button.mybtn:focus {
     color: #fff; 
     background: #de615e; 
 }
+*/
 
 
 .mysocial-login {
@@ -206,12 +239,14 @@ button.mybtn:focus {
     -webkit-border-radius: 4px; 
     border-radius: 4px;
 }
+/*
 .mybtn-social:hover, .mybtn-social:focus, .mybtn-social:active:focus { 
     outline: 0;
     opacity: 0.6; 
     background: rgba(0, 0, 0, 0.3); 
     color: #fff; 
 }
+*/
 .nav nav-tabs{
      background: rgba(0, 0, 0, 0.3);
 }
@@ -263,24 +298,24 @@ button.mybtn:focus {
 /*---------------*/
 
 /*DIv de la zona de menu derecha*/
- .my-div-right{
+.my-div-right{
     float: right;
-    }
+}
 /*---------------*/
 /*---ALERTA ICONO DE NOTIFICACION--------*/
-    .my-header .navbar .nav > li > a > .label {
-    position: absolute;
-    top: 9px;
-    right: 7px;
-    text-align: center;
-    font-size: 9px;
-    padding: 2px 3px;
-    line-height: .9;
-    }
+.my-header .navbar .nav > li > a > .label {
+  position: absolute;
+  top: 9px;
+  right: 7px;
+  text-align: center;
+  font-size: 9px;
+  padding: 2px 3px;
+  line-height: .9;
+}
 
-    .label-default {
-    background-color: #f13720;
-    }
+.label-default {
+  background-color: #f13720;
+}
 /*-----------------------------*/
 /*SECCION DEL USUARIO*/
 .navbar-nav .user-menu .user-image {
@@ -290,6 +325,7 @@ button.mybtn:focus {
   border-radius: 50%;
   margin-top: -2px;
 }
+
 .navbar-nav  .user-menu  .dropdown-menu {
     border-top-right-radius: 0;
     border-top-left-radius: 0;
@@ -322,30 +358,38 @@ button.mybtn:focus {
 /*-----------------------------*/
 
 /*Efectos sobre botones*/
-a:focus, a:hover{
-    
-    text-decoration: none;
-    /*background-color: rgba(8, 8, 8, 0.54);*/
-    color: #f4476b !important;
-    font-weight: 400;
-    border-left: 1px groove #f4476b !important;    
-    border-right: 1px groove #f4476b !important;
+a:focus, a:hover{    
+  text-decoration: none;
+  /*
+  background-color: rgba(8, 8, 8, 0.54);
+  */
+  color: #e2004a !important;
+  font-weight: 400;
+  /*
+  border-left: 1px groove #f4476b !important;    
+  border-right: 1px groove #f4476b !important;
+  */
 }
+/*
 a, .my-logo{
     color: #fff;
     text-decoration: none;
 }
-a:hover:focus, .my-logo{
+a:hover:focus, .my-logo {
     color: #fff;
     text-decoration: none;
 }
+*/
+
 .nav>li>a:focus, .nav>li>a:hover{
-    text-decoration: none;
-    background-color: rgba(8, 8, 8, 0.54);
-    color: #1AAE88;
-    font-weight: 400;
-    border-left: 1px groove #1AAE88;    
-    border-right: 1px groove #1AAE88;
+  text-decoration: none;
+  background-color: rgba(8, 8, 8, 0.54);
+  color: #1AAE88;
+  font-weight: 400;
+  /*
+  border-left: 1px groove #1AAE88;    
+  border-right: 1px groove #1AAE88;
+  */
 }
 .nav .open>a, .nav .open>a:focus, .nav .open>a:hover {
     background-color: transparent;
@@ -458,7 +502,11 @@ a:hover:focus, .my-logo{
   }
 }
 
-.navbar-default .navbar-header-1 .navbar-brand {
+.navbar-header .navbar-brand a{
+  color: #f4476b;
+}
+
+.navbar-default .navbar-header .navbar-brand{
   font-family: 'Catamaran', 'Helvetica', 'Arial', 'sans-serif';
   font-weight: 200;
   letter-spacing: 1px;

@@ -24,9 +24,9 @@
 	                            <td>{{evento.idevento}}</td>
 	                            <td>{{evento.nombre}}</td>
 	                            <td>
-	                                <a href="" ng-click="irEditar(evento);"><i class='fa fa-pencil colorCatchai'></i></a>
-	                                <a href="" ng-click="irGifs(evento);"><i class='fa fa-list colorCatchai'></i></a>
-	                                <a href="" ng-click="eventoEliminar(evento);"><i class='fa fa-trash colorCatchai'></i></a>
+	                                <a href="" title="Editar Evento" ng-click="irEditar(evento);"><i class='fa fa-pencil colorCatchai'></i></a>
+	                                <a href=""  title="Ver Gifs" ng-click="irGifs(evento);"><i class='fa fa-list colorCatchai'></i></a>
+	                                <a href=""  title="Eliminar Evento" ng-click="eventoEliminar(evento);"><i class='fa fa-trash colorCatchai'></i></a>
 	                            </td>
 	                        </tr>
 	                    </tbody>
@@ -37,10 +37,14 @@
 	    <div class="row">
 	        <div class="col-lg-12 col-md-12 col-sm-12">
 	            <nav>
-	                <ul class="pagination" style="cursor:pointer;">
-	                    <li><a class="colorCatchai" ng-click="eventosPrev();" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-	                    <li ng-repeat="i in getNumber(model.totalPaginas) track by $index"><a class="colorCatchai" ng-click="eventosCargar($index+1);">{{$index+1}}</a></li>
-	                    <li><a class="colorCatchai" ng-click="eventosNext();" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+	                <ul class="pagination">
+	                    <li>
+	                    	<a ng-click="eventosPrev();" aria-label="Previous"><span aria-hidden="true">«</span></a>
+                    	</li>
+	                    <li ng-class="{'active' : model.actualPagina == $index+1}" ng-repeat="i in getNumber(model.totalPaginas) track by $index"><a class="colorCatchai" ng-click="eventosCargar($index+1);">{{$index+1}}</a></li>
+	                    <li>
+	                    	<a ng-click="eventosNext();" aria-label="Next"><span aria-hidden="true">»</span></a>
+                    	</li>
 	                </ul>
 	            </nav>
 	        </div>

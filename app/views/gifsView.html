@@ -15,6 +15,7 @@
 	                    <thead>
 	                        <tr>
 	                            <th>ID </th>
+	                            <th>GIF </th>
 	                            <th>Bajada </th>
 	                            <th>Acciones </th>
 	                        </tr>
@@ -23,6 +24,7 @@
 
 	                        <tr ng-repeat="gif in model.gifs" class="img animated fadeIn" ng-class="{ 'alert-success' : gif.valid == 1, 'alert-danger' : gif.valid == 2}">
 	                            <td>{{gif.idimagen}}</td>
+	                            <td><img width=100 ng-src="{{gif.ruta}}"/></td>
 	                            <td>{{gif.descripcion}}</td>
 	                            <td>
 	                                <a href="" ng-click="darBaja(gif);"><i class='fa fa-arrow-down colorCatchai'></i></a>

@@ -30,7 +30,7 @@ angular.module("catchaiApp.GifDAO",['catchaiApp.GifModel','catchaiApp.EventoMode
                         imagenes.push(model);
                     }
                     if(imagenes.length>0){
-                        deferred.resolve({result:true,imagenes:imagenes,paginas:json.data.paginas,mensajes:json.data.mensajes});                            
+                        deferred.resolve({result:true,imagenes:imagenes,paginas:json.data.totalPaginas,mensajes:json.data.mensajes});                            
                     } else {
                         deferred.reject({result:false,imagenes:null,errores:json.data.mensaje});
                     }
